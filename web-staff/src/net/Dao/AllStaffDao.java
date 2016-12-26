@@ -39,7 +39,12 @@ public class AllStaffDao {
 		List<StaffDto> searchStaff= new ArrayList<StaffDto>();
 		try {
 			conn = getConnection();
-			stmt = conn.prepareStatement( "select no,sn,graduateday,religionno,schoolno from staff");
+			stmt = conn.prepareStatement( "select staff.no, sn,graduateday, school.graduate, religion.name,skill.name"
+	+"from staff"
+	+"join school on staff.schoolno = school.no"
+	+"join religion on staff.religionno = religion.no"
+	+"join staffskill on staff.no = staffskill.staffno"
+	+"join skill on staffskill.skillno = skill.no");
 			stmt.executeQuery();
 			//staff 리스트 보이기
 			stmt.executeQuery();
@@ -50,6 +55,13 @@ public class AllStaffDao {
 		}
 		return searchStaff;
 
+	}
+	//staff 조회
+	public List<StaffDto> joinStaff(){
+		
+		
+		return null;
+		
 	}
 
 	// insert staff 등록 및 staffskill 등록
